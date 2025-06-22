@@ -1,0 +1,116 @@
+:host(:not([hidden])) {
+  display: inline-flex;
+  width: 20ch;
+  border: 1px solid #ccc;
+  color: fieldtext;
+  caret-color: fieldtext;
+  background-color: field;
+  line-height: 1;
+
+}
+
+/** Feature detect Safari */
+@supports (font: -apple-system-body) {
+  :host(:not([hidden])) {
+    caret-color: canvastext;
+    background-color: canvas;
+    color: canvastext;
+  }
+}
+  
+:host(:disabled) {
+  color: graytext;
+  pointer-events: none;
+}
+:host::selection {
+  background: highlight;
+}
+
+:host(:focus) {
+  outline: auto Highlight;
+  outline: auto -webkit-focus-ring-color;
+}
+
+:host(:disabled) output {
+  display: none;
+}
+
+:host(:enabled) input:not(:placeholder-shown) {
+  color: transparent;
+}
+input::selection {
+  background:var(--selection, highlight);
+}
+
+div {
+  user-select: none;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  overscroll-behavior-inline: none;
+  width: 100%; /** ensure fills parent */
+  height: 100%;
+  display: flex;
+}
+div::-webkit-scrollbar {
+  display: none;
+}
+
+span {
+  display: grid;
+  align-items: center;
+}
+
+input,output {
+  all: unset;
+  grid-row: 1;
+  grid-column: 1;
+  white-space: pre;
+  background: transparent;
+  color: inherit;
+  width: 100%;
+  line-height: inherit;
+  /** Safari applies different kerning to <input>s */
+  font-kerning: none;
+}
+
+/* As per the HTML5 spec, input fields with a type of `email` don't allow 
+selection changes via the DOM APU, which is used here to switch the `z-index` of 
+the <input> so the caret appears over the <output> element when no selection
+had been made.
+
+See: https://html.spec.whatwg.org/multipage/input.html#do-not-apply
+*/
+
+input.noselection+output {
+  order:-1
+}
+/*
+input { z-index:1}
+*/
+output {
+  pointer-events: none;
+}
+
+input {
+  text-shadow: none;
+}
+
+/** Remove Chrome dropdown icon **/
+input::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+/** Chrome autofill hides the styled input value */
+input:-internal-autofill-previewed {
+  background-clip: text;
+}
+
+input:-internal-autofill-previewed + output {
+  display: none;
+}
+
+input:-internal-autofill-selected {
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}

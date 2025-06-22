@@ -1,0 +1,23 @@
+{
+  "name": "@keithclark/richinput",
+  "description": "A web component for more colourful text inputs",
+  "version": "1.0.0",
+  "main": "dist/richinput.js",
+  "files": ["dist/"],
+  "types": "./dist/richinput.d.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "rollup -c -w",
+    "build": "rollup -c"
+  },
+  "author": "Keith Clark",
+  "license": "MIT",
+    "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keithclark/richinput.git"
+  },
+  "devDependencies": {
+    "@keithclark/rollup-plugin-appkit": "github:keithclark/rollup-plugin-appkit#b8e0c9b7ac4cfe92ee187b2b87df34af8c475b02",
+    "@rollup/plugin-terser": "^0.4.4"
+  }
+}
