@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RichInput by Keith Clark</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+<link rel="shortcut icon" type="image/x-icon" href="https://keithclark.co.uk/img/icon-32.png">
+<link rel="canonical" href="https://keithclark.github.io/richinput" />
+<meta name="description" content="A more colourful text input element">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RichInput by Keith Clark">
+<meta property="og:description" content="A more colourful text input element">
+<meta property="og:url" content="https://keithclark.github.io/richinput">
+<meta property="og:image" content="https://keithclark.co.uk/img/social-logo.png">
+<meta name="theme-color" content="#dddde4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1d1e21" media="(prefers-color-scheme: dark)">
+<style>:root{--radius:.75rem;--vspace:.75rem;--width:45rem;--gutter:calc(var(--vspace)*1.5);--focus-size:3px;--pull:8em;--color-primary:light-dark(#c31337,#fe2653);--color-primary-muted:color-mix(in srgb,var(--color-primary),var(--color-base-contrast-high) 30%);--color-base:light-dark(#ededed,#282c34);--color-base-dark:light-dark(#fff,#1d1e21);--color-base-contrast:light-dark(#505050,#c4c1cf);--color-base-contrast-high:light-dark(#000,#fff);--color-base-contrast-low:light-dark(#6d6d6d,#a09999);--color-selected:#65b2f0;--ui-background-checkerboard:repeating-conic-gradient(light-dark(#d3d3d3,#8881) 0% 25%,transparent 0% 50%) 0 0/24px 24px light-dark(#dcdcdc,#2e3239)}@supports not (color: light-dark(#ededed,#282c34)){:root{--color-primary:#fe2653;--color-base:#282c34;--color-base-dark:#1d1e21;--color-base-contrast:#c4c1cf;--color-base-contrast-high:#fff;--color-base-contrast-low:#a09999;--ui-background-checkerboard:repeating-conic-gradient(#8881 0% 25%,transparent 0% 50%) 0 0/24px 24px #2e3239}}*{margin:0;padding:0;min-height:0;min-width:0}html{color-scheme:light dark;font:140%/1.5 'Nunito',sans-serif;-webkit-text-size-adjust:100%}body{line-height:calc(var(--vspace)*2);max-width:var(--width);margin:auto;background-color:var(--color-base);color:var(--color-base-contrast);padding-inline:calc(var(--gutter)*1.5)}code{line-height:1;color:var(--color-base-contrast-high);font-weight:bold;font-family:monospace}pre code{line-height:inherit;font-weight:normal}ul{margin-left:1rem}li{display:block}li::before{position:absolute;margin-left:-1em;content:'●';color:var(--color-primary-muted)}a{color:var(--color-primary-muted)}h1{font-size:350%;font-weight:normal;line-height:calc(var(--vspace)*5);translate:0 -.5rem}h2{font-size:225%;line-height:calc(var(--vspace)*4);translate:0 calc(var(--vspace)*.325);font-weight:normal;color:var(--color-primary)}h3{font-size:175%;line-height:calc(var(--vspace)*3);font-weight:normal;color:var(--color-primary)}h4{font-weight:bold;font-size:125%;line-height:calc(var(--vspace)*2);translate:0 calc(var(--vspace)*-.14);color:var(--color-base-contrast-high)}h5{color:var(--color-base-contrast-low);text-transform:uppercase;font-size:90%}dd{margin-left:var(--gutter)}pre{display:block;width:100%;overflow:auto}.rounded{border-radius:var(--radius)}.frosted{background-color:color-mix(in srgb,var(--color-base) 85%,#0000)}.invisible{position:absolute;clip-path:rect(0 0 0 0)}.outset{margin-inline:calc(var(--gutter)*-1)}.inset{padding:var(--vspace) var(--gutter)}.pull-left{margin-left:max(calc(var(--pull)*-1),calc(50% - 50vw + 1em))}.pull-right{margin-right:max(calc(var(--pull)*-1),calc(50% - 50vw + 1em))}.pull-left.outset{margin-left:max(calc(var(--pull)*-1),calc(50% - 50vw) + var(--gutter)/2)}.pull-right.outset{margin-right:max(calc(var(--pull)*-1),calc(50% - 50vw) + var(--gutter)/2)}.push-left{margin-left:max(0px,min(var(--pull),calc(50vw - (var(--width)/2))))}.push-right{margin-right:max(0px,min(var(--pull),calc(50vw - (var(--width)/2))))}.bleed-left{margin-left:calc(50% - 50vw);padding-left:max(var(--gutter),calc(50vw + (50% - var(--width))))}.bleed-right{margin-right:calc(50% - 50vw);padding-right:max(var(--gutter),calc(50vw + (50% - var(--width))))}.textblock>:where(:not(h4,h5)) + :where(:not(h5)){margin-block-start:calc(var(--vspace)*3)}.textblock>*+ h5{margin-block-start:calc(var(--vspace)*2)}.textblock>h2 + :not(h3){margin-block-start:calc(var(--vspace)*2)}.textblock>h3 + :not(h4){margin-block-start:calc(var(--vspace)*2)}@media (max-width: 44em){:root{font-size:100%}h1{font-size:min(12vw,300%)}}.hero{overflow:hidden;display:flex;justify-content:center;overflow-y:hidden;padding-block:max(6em,11vh);background:linear-gradient(to bottom,var(--color-base-dark),var(--color-base))}.heroInput{user-select:none;pointer-events:none;font-size:10vw;text-align:center;transform:rotate(-0deg);transform-origin:50% 50%;background:transparent;border:0;color:light-dark(#bbb,#666);min-width:auto;height:1.5em}.heroInput::part(group-1){color:var(--hero-part1-color)}.heroInput::part(group-2){color:var(--hero-part2-color)}.heroInput::part(group-3){color:var(--hero-part3-color)}.heroInput::part(group-4){color:var(--hero-part4-color)}.heroInput::part(group-5){color:var(--hero-part5-color)}.heroInput::part(group-6){color:var(--hero-part6-color)}.heroInput::part(group-7){color:var(--hero-part7-color)}.heroInput::part(group-8){color:var(--hero-part8-color)}.heroInput::part(group-9){color:var(--hero-part9-color)}.heroInput--intro{--hero-part1-color:#D90368;--hero-part2-color:#FFD400}.heroInput--intro2{color:var(--color-base-contrast-low);--hero-part1-color:hsl(0,90%,60%);--hero-part2-color:hsl(40,90%,60%);--hero-part3-color:hsl(80,90%,60%);--hero-part4-color:hsl(120,90%,60%);--hero-part5-color:hsl(160,90%,60%);--hero-part6-color:hsl(200,90%,60%);--hero-part7-color:hsl(240,90%,60%);--hero-part8-color:hsl(280,90%,60%);--hero-part9-color:hsl(320,90%,60%)}.heroInput--email{--hero-part1-color:hsl(90,76%,62%);--hero-part2-color:hsl(195,50%,49%)}.heroInput--url{--hero-part1-color:hsl(196,74%,47%);--hero-part2-color:hsl(37,100%,63%);--hero-part3-color:hsl(358,99%,61%)}.vs{display:grid;gap:calc(var(--vspace)*2);justify-content:center;align-items:end}#hero-example .htmlviewer{padding:calc(var(--vspace)*4) var(--gutter)}#hero-example input,#hero-example kc-richinput{font-size:200%;width:14em}.hero-example label{display:block;line-height:1.5;text-indent:1.25em}.hero-example ::part(group-1){color:hsl(223,91.10%,64.90%)}.hero-example ::part(group-2){color:hsl(120,80%,50%)}#email-example::part(group-1){color:#df2020}#email-example::part(group-2){color:#df9f20}#url-example{width:20em;box-sizing:border-box}.kccouk{background:var(--color-base-dark);padding-block:calc(var(--vspace)*1.5);display:flex;align-items:center;justify-content:space-between;gap:var(--vspace) var(--gutter)}.kccouk__social{display:flex;gap:var(--gutter);font-size:0;line-height:0;margin:0}.kccouk--header{position:sticky;top:0;z-index:2}.kccouk--footer{margin-top:calc(var(--vspace)*2);flex-direction:column-reverse}.kccouk{color:var(--color-base-contrast-high)}.kccouk a{color:currentColor}@media (max-width:44em){.kccouk--header{font-size:130%}.kccouk__social{--vspace:1rem}}.figure{display:block}.figure__caption{padding-block-start:var(--vspace);color:var(--color-base-contrast-low);text-align:center;margin-inline:var(--vspace);font-size:80%;text-transform:uppercase}.codesample{background:var(--color-base-dark)}.note{padding-left:calc(var(--gutter)*3);color:var(--color-base-contrast-low);background:color-mix(in srgb,var(--color-base-dark),var(--color-base) 50%)}.note .icon{position:absolute;margin-left:calc(var(--gutter)*-2)}.note em{font-style:normal}.htmlpreview{display:grid;overflow:hidden;grid-auto-rows:1fr 1fr}.htmlpreview .codeblock{min-height:100%;background:var(--color-base-dark)}.htmlpreview label:first-of-type{border-bottom-left-radius:var(--radius)}.htmlpreview label:last-of-type{border-bottom-right-radius:var(--radius)}@media (min-width: 60em){.htmlpreview{grid-template-columns:50% 50%}.htmlpreview .tabsheet__pane{border-top-right-radius:var(--radius)}.htmlpreview label:first-of-type{border-bottom-left-radius:0}}.serviceLink svg{margin-right:.5ch}.icon{background-color:currentColor;display:inline-block;aspect-ratio:1;vertical-align:text-top;width:calc(var(--vspace)*1.75);height:calc(var(--vspace)*1.75);background-size:contain;-webkit-mask-image:var(--icon-url);mask-image:var(--icon-url)}.htmlviewer{background:var(--ui-background-checkerboard);background-position:50% 50%;display:flex;align-items:center;justify-content:center;min-width:0;overflow:auto}.htmlviewer>*{max-width:100%}.codeblock{box-sizing:border-box;overflow:auto}code[class*="language-"],pre[class*="language-"]{text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;tab-size:4;hyphens:none}code[class*="language-"]::selection,pre[class*="language-"]::selection,code[class*="language-"] ::selection,pre[class*="language-"] ::selection{background:light-dark(#dcdcdc,#464646)}.language-css>code,.language-sass>code,.language-scss>code{color:light-dark(#c0580c,#fd9170)}.token.attr-name,.token.builtin,.token.class{color:light-dark(#e28309,#ffcb6b)}.token.attr-value,.token.attribute,.token.pseudo-class,.token.pseudo-element,.token.string{color:light-dark(#7bad31,#a5e844)}.token.atrule,.token.boolean,.token.constant,.token.function,.token.important,.token.keyword,.token.symbol,.token.id{color:light-dark(#b15fe7,#c792ea)}.token.comment,.token.prolog,.token.doctype{color:light-dark(#afba9e,#7c8b95)}.token.cdata,.token.inserted,.token.property,.token.char{color:light-dark(#1e8292,#80cbc4)}.token.class-name,.token.regex,.token.hexcode{color:#f2ff00}.token.selector,.token.tag,.token.deleted,.token.url,.token.variable,.token.entity{color:light-dark(#e23939,#ff6666)}.token.number,.token.unit{color:#fd9170}.token.operator,.token.punctuation{color:light-dark(#85acbc,#488da7)}.tabsheet{min-width:0;min-height:0;display:grid;position:relative;grid-auto-columns:1fr;overflow:hidden;width:100%}@supports not (color: light-dark(#0001,#0008)){.tabsheet>label{background-color:#0008}}.tabsheet>label{background-color:light-dark(#0001,#0008);text-align:center;color:#888;grid-row:2;padding:calc(var(--vspace)/2)}.tabsheet>input{position:absolute;bottom:0;clip:rect(0,0,0,0);clip-path:rect(0 0 0 0)}input:focus-visible + label{position:relative;&,& + .tabsheet__pane{outline:var(--focus-size) solid var(--color-selected);outline-offset:calc(var(--focus-size)*-1)}&::before{content:'';position:absolute;inset:auto var(--focus-size);background:inherit;border:var(--focus-size) solid var(--color-base-dark);bottom:calc(100% - var(--focus-size))}}.tabsheet__pane{overflow:scroll;height:100%}.tabsheet__pane:focus{outline:var(--focus-size) solid var(--color-selected);outline-offset:calc(var(--focus-size)*-1)}.tabsheet>input:checked + label{background:var(--color-base-dark);color:var(--color-base-contrast-high)}.tabsheet>input:not(:checked) + label +*{visibility:hidden}.tabsheet>label:nth-last-child(5)~:nth-child(3n){grid-column-end:3}.tabsheet>label:nth-last-child(8)~:nth-child(3n){grid-column-end:4}.tabsheet>label:nth-last-child(11)~:nth-child(3n){grid-column-end:5}.tabsheet>label:nth-last-child(14)~:nth-child(3n){grid-column-end:6}.tabsheet>:nth-child(3n){margin:0;grid-row:1;grid-column:1;height:100%}.badge{font-size:.6rem;line-height:0;padding:.2rem .5rem;border-radius:1rem;background:var(--color-base-dark);vertical-align:middle;color:var(--color-base-contrast-low);text-transform:uppercase;font-weight:normal}section+section{margin-top:calc(var(--vspace)*6)}.htmlpreview{max-height:calc(var(--vspace)*24)}.preamble{font-size:150%;line-height:calc(var(--vspace)*2.5);color:var(--color-base-contrast-high)}.htmlviewer :is(kc-richinput,input){padding:.25em .5em;font:inherit;font-size:120%;border-radius:.5em;box-sizing:border-box;border:0;background:var(--color-input-background,#fff);color:var(--color-input-text,#999);caret-color:var(--color-input-caret,#000);max-width:100%;min-width:0;box-shadow:0 .075em .15em .05em light-dark(#0002,#0004)}.htmlviewer :focus{outline:var(--focus-size) solid var(--color-selected)}.htmlviewer ::selection{background-color:var(--color-input-selection,#cdf)}@media (min-width: 60em){.htmlpreview{max-height:calc(var(--vspace)*17)}}@media (prefers-color-scheme: dark){.htmlviewer{--color-input-background:var(--color-base-dark);--color-input-text:#888;--color-input-caret:#fff;--color-input-selection:#346}}:root{--c-red:#e61919;--c-yellow:#f19d1a;--c-green:#30a730;--c-blue:#188dd1}@media (prefers-color-scheme: dark){:root{--c-red:#e61919;--c-yellow:#e6bc19;--c-green:#19e619;--c-blue:#19e5e6}}.htmlviewer ::part(group-1){color:var(--c-red)!important}.htmlviewer ::part(group-2){color:var(--c-yellow)!important}.htmlviewer ::part(group-3){color:var(--c-green)!important}.htmlviewer ::part(group-4){color:var(--c-blue)!important}</style>
+</head>
+<body>
+<div class="kccouk kccouk--header bleed-left bleed-right">
+RichInput <ul class="kccouk__social">
+<li><a class="serviceLink" href="https://github.com/keithclark/richinput">
+<i class="icon icon--github"></i>Find the project on GitHub</a>
+<li><a href="https://keithclark.co.uk" title="Visit Keith Clark's website"><i class="icon icon--keithclark"></i> Visit Keith Clark's website</a>
+</ul>
+</div>
+<main>
+<section class="textblock">
+<div class="hero bleed-left bleed-right">
+<kc-richinput tabindex="-1" id="heroinput" class="heroInput" readonly value="" style-pattern="([^@]+)@?(\S+)?"></kc-richinput>
+</div> <h1 class="invisible">RichInput</h1>
+<h2 class="invisible">A colourful &lt;input&gt; element</h2>
+<p class="preamble">RichInput is a Web Component that 
+extends the native text input to provide real-time colorization of 
+user input.</p>
+<p>RichInput behaves like a standard text &lt;input&gt; and 
+can be used as a direct replacement for elements with a type of <code>text</code>, 
+<code>email</code>, <code>tel</code>, or <code>url</code>.</p>
+<figure id="hero-example" class="figure outset hero-example">
+<div class="figure__content"> 
+<div class="htmlviewer inset bleed-left bleed-right">
+<div>
+<div class="vs">
+<div class="field">
+<label for="demo-1">Native input</label>
+<input id="demo-1" type="email" value="email@mysite.com">
+</div>
+<div class="field">
+<label for="demo-2">Enchanced input</label>
+<kc-richinput id="demo-2" type="email" value="email@mysite.com" stylepattern="([^@]+)@?(.*)?"></kc-richinput>
+</div>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="figure__caption">
+An example showing the visual difference between a native input and RichInput </figcaption>
+</figure>
+<p>User input is colourized using a regular expression pattern, which is 
+provided via the <code>stylepattern</code> HTML attribute. The capture
+groups of the expression are used to style the output. Here's the markup
+for the example above:</p>
+<figure class="figure outset">
+<div class="figure__content"> 
+<pre class="codeblock inset codesample rounded"><code class="language-html">&lt;kc-richinput stylepattern=&quot;([^@]+)@?(.*)?&quot;&gt;&lt;/kc-richinput&gt;</code></pre>
+</div>
+</figure> 
+<p>In this case, the pattern <code>([^@]+)@?(.*)?</code> is used to split
+the input text into two capture groups: the first group <code>([^@]+)</code> 
+matches one or more characters before an optional "@" symbol, and the second 
+group <code>(.*)?</code> captures any characters following it.</p>
+<p class="note rounded inset">
+<i class="icon icon--info"></i>
+<em>Note: The regular expression pattern must match the entire user input.
+Internally, the pattern is prefixed with "^(?:", and suffixed with ")$". 
+This matches the native behavior of the &lt;input&gt; pattern property.
+</em>
+</p>
+<p>The component exposes each of these capture groups as stylable regions 
+that can be accessed using the CSS <code>::part</code> pseudo-element.
+Using a few lines of CSS it's possible to contextually highlight the user 
+and domain parts of an email-like string:</p>
+<figure class="figure outset">
+<div class="figure__content"> 
+<pre class="codeblock inset codesample rounded"><code class="language-css">/** Capture group 1 */
+::part(group-1) {
+  color: #5078f0;
+}
+
+/** Capture group 2 */
+::part(group-2) {
+  color: #14f014;
+}</code></pre>
+</div>
+</figure>
+<p>Under the hood, the RichInput component leverages a 
+native <code>&lt;input&gt;</code> element as its core input mechanism. This 
+ensures users benefit from browser-native behaviors and accessibility 
+features. Since this is based on a standard input element, only a small 
+subset of CSS properties can be used to style capture groups:</p>
+<ul>
+<li><code>color</code></li>
+<li><code>background-color</code></li>
+<li><code>text-decoration</code></li>
+<li><code>text-shadow</code></li>
+</ul>
+</section>
+<section class="textblock">
+<h2>Examples</h2>
+<figure class="figure outset pull-left pull-right">
+<div class="figure__content"> 
+<div class="htmlpreview rounded">
+<div class="htmlviewer inset">
+<div>
+<kc-richinput
+id="email-example"
+type="email"
+value="email@mysite.com"
+stylepattern="([^@]+)@?(.*)?"
+></kc-richinput>
+<style>#email-example::part(group-1){color:#df2020}#email-example::part(group-2){color:#df9f20}</style>
+</div>
+</div>
+<div class="tabsheet">
+<input tabindex="0" id="ce-620163089-HTML" name="ce-620163089" type="radio" value="html" checked>
+<label class="tabsheet__tab" for="ce-620163089-HTML">HTML</label>
+<div class="tabsheet__pane" tabindex="0">
+<pre class="codeblock inset"><code class="language-html">&lt;kc-richinput
+  id=&quot;email-example&quot;
+  type=&quot;email&quot;
+  value=&quot;email@mysite.com&quot;
+  stylepattern=&quot;([^@]+)@?(.*)?&quot;
+&gt;&lt;/kc-richinput&gt;</code></pre>
+</div>
+<input tabindex="0" id="ce-620163089-CSS" name="ce-620163089" type="radio" value="html">
+<label class="tabsheet__tab" for="ce-620163089-CSS">CSS</label>
+<div class="tabsheet__pane" tabindex="0">
+<pre class="codeblock inset"><code class="language-css">#email-example::part(group-1) {
+  color: #df2020;
+}
+#email-example::part(group-2) {
+  color: #df9f20;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="figure__caption">
+A RichInput highlighting the user and domain parts of an email address </figcaption>
+</figure>
+<figure class="figure outset pull-left pull-right">
+<div class="figure__content"> 
+<div class="htmlpreview rounded">
+<div class="htmlviewer inset">
+<div>
+<kc-richinput
+id="url-example"
+type="url"
+value="https://site.com/index.html?id=1"
+stylepattern="(\w+)(?::/?/?)?(?:([^/]+)?(?:/?)([^?]*)(?:\??))(.*)"
+></kc-richinput>
+<style>#url-example::part(group-1){color:#e61919}#url-example::part(group-2){color:#c08819}#url-example::part(group-3){color:#30a730}#url-example::part(group-4){color:#188dd1}</style>
+</div>
+</div>
+<div class="tabsheet">
+<input tabindex="0" id="ce-1264765476-HTML" name="ce-1264765476" type="radio" value="html" checked>
+<label class="tabsheet__tab" for="ce-1264765476-HTML">HTML</label>
+<div class="tabsheet__pane" tabindex="0">
+<pre class="codeblock inset"><code class="language-html">&lt;kc-richinput
+  id=&quot;url-example&quot;
+  type=&quot;url&quot;
+  value=&quot;https://site.com/index.html?id=1&quot;
+  stylepattern=&quot;(\w+)(?::/?/?)?(?:([^/]+)?(?:/?)([^?]*)(?:\??))(.*)&quot;
+&gt;&lt;/kc-richinput&gt;</code></pre>
+</div>
+<input tabindex="0" id="ce-1264765476-CSS" name="ce-1264765476" type="radio" value="html">
+<label class="tabsheet__tab" for="ce-1264765476-CSS">CSS</label>
+<div class="tabsheet__pane" tabindex="0">
+<pre class="codeblock inset"><code class="language-css">#url-example::part(group-1) {
+  color: #e61919;
+}
+#url-example::part(group-2) {
+  color: #c08819;
+}
+#url-example::part(group-3) {
+  color: #30a730;
+}
+#url-example::part(group-4) {
+  color: #188dd1;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="figure__caption">
+A RichInput with colourized URL fragments </figcaption>
+</figure>
+<figure class="figure outset pull-left pull-right">
+<div class="figure__content"> 
+<div class="htmlpreview rounded">
+<div class="htmlviewer inset">
+<div>
+<kc-richinput
+id="tel-example"
+type="tel"
+value="01234567890"
+stylepattern="(0\d{0,4})\s*(\d*)"
+></kc-richinput>
+<style>#tel-example::part(group-1){color:#df2020;text-shadow:3px 3px #d224}#tel-example::part(group-2){color:#df9f20;text-shadow:3px 3px #d904}</style>
+</div>
+</div>
+<div class="tabsheet">
+<input tabindex="0" id="ce-759489250-HTML" name="ce-759489250" type="radio" value="html" checked>
+<label class="tabsheet__tab" for="ce-759489250-HTML">HTML</label>
+<div class="tabsheet__pane" tabindex="0">
+<pre class="codeblock inset"><code class="language-html">&lt;kc-richinput
+  id=&quot;tel-example&quot;
+  type=&quot;tel&quot;
+  value=&quot;01234567890&quot;
+  stylepattern=&quot;(0\d{0,4})\s*(\d*)&quot;
+&gt;&lt;/kc-richinput&gt;</code></pre>
+</div>
+<input tabindex="0" id="ce-759489250-CSS" name="ce-759489250" type="radio" value="html">
+<label class="tabsheet__tab" for="ce-759489250-CSS">CSS</label>
+<div class="tabsheet__pane" tabindex="0">
+<pre class="codeblock inset"><code class="language-css">#tel-example::part(group-1) {
+  color: #df2020;
+  text-shadow: 3px 3px #d224;
+}
+#tel-example::part(group-2) {
+  color: #df9f20;
+  text-shadow: 3px 3px #d904;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<figcaption class="figure__caption">
+A RichInput with pattern for styling a UK phone number </figcaption>
+</figure>
+</section>
+<section class="textblock">
+<h2 class="invisible">How to use </h2>
+<h3>Using RichInput in a build tool / bundler:</h3>
+<p>If you're building on top of a framework or use build tooling such as 
+Vite or Rollup, you can install the module as a dependency:</p>
+<figure class="figure outset">
+<div class="figure__content"> 
+<pre class="codeblock inset codesample rounded"><code>npm install git+https://github.com/keithclark/richinput</code></pre>
+</div>
+</figure>
+<p>You can now import the element from the module and define it in the 
+component registry using your preferred tag name. In this example we're 
+using <code>kc-richinput</code>:</p>
+<figure class="figure outset">
+<div class="figure__content"> 
+<pre class="codeblock inset codesample rounded"><code class="language-js">import RichInputElement from &#039;@keithclark/richinput&#039;;
+customElements.define(&#039;kc-richinput&#039;, RichInputElement);</code></pre>
+</div>
+</figure>
+<h3>Using RichInput directly in a browser:</h3>
+<h4>Method 1: Use a local copy of the module:</h4>
+<p>Download the <a href="">minified JavaScript module</a> into your project,
+import the element and register it:</p>
+<figure class="figure outset">
+<div class="figure__content"> 
+<pre class="codeblock inset codesample rounded"><code class="language-html">&lt;script type=&quot;module&quot;&gt;
+  import RichInputElement from &#039;./path/to/element.js&#039;;
+  customElements.define(&#039;kc-richinput&#039;, RichInputElement);
+&lt;/script&gt;</code></pre>
+</div>
+</figure>
+<h4>Method 2: Load from a CDN:</h4>
+<p>Import the component directly from a CDN and register it:</p>
+<figure class="figure outset">
+<div class="figure__content"> 
+<pre class="codeblock inset codesample rounded"><code class="language-html">&lt;script type=&quot;module&quot;&gt;
+  import RichInputElement from &#039;https://cdn.jsdelivr.net/gh/keithclark/richinput@1.0.0/dist/richinput.min.js&#039;;
+  customElements.define(&#039;kc-richinput&#039;, RichInputElement);
+&lt;/script&gt;</code></pre>
+</div>
+</figure>
+</section>
+<section class="textblock">
+<h1>Documentation</h1>
+<h2>The richinput HTML element</h2>
+<p>RichInput enhances the native text-based &lt;input&gt; form element, providing real-time colourization of user input using a Regular Expression pattern. A richinput element can be manipulated with JavaScript using the RichInputElement interface. </p>
+<h3>HTML Attributes</h3>
+<dl class="memberList">
+<dt>
+<h4>
+<code>autocomplete</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>Indicates whether the input value can be automatically completed by the browser. For information on allowed values please see: https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill. Can be one of <code>&quot;&lt;token-list&gt;&quot;</code>, <code>&quot;off&quot;</code> or <code>&quot;on&quot;</code>. </p>
+</dd>
+<dt>
+<h4>
+<code>disabled</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>A boolean attribute. Controls whether the user is able interact with the input, or not. A disabled input cannot receive focus or have it's value modifed by the user. </p>
+</dd>
+<dt>
+<h4>
+<code>maxlength</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>Determines the maximum number of characters permissable in the value. </p>
+</dd>
+<dt>
+<h4>
+<code>pattern</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>A string containing a regular expression that the user's input must match. The regular expression must match the entire input value, rather than matching a substring. </p>
+</dd>
+<dt>
+<h4>
+<code>placeholder</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>A text string that is displayed in the field as a prompt until the user puts focus on the field. </p>
+</dd>
+<dt>
+<h4>
+<code>readonly</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>A boolean attribute. Determines whether a user can modify the input value. An input marked as read-only can receive focus. </p>
+</dd>
+<dt>
+<h4>
+<code>required</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>A boolean attribute. Determines if the user must supply a value for this input for it to be considered valid. If the input is marked as required and a value is missing, the user will be prompted to set one when attempting to submit a form. </p>
+</dd>
+<dt>
+<h4>
+<code>stylepattern</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>The regular expression pattern used to control styling of the input value. The pattern must match the entire input value, rather than matching a substring. </p>
+</dd>
+<dt>
+<h4>
+<code>type</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>Controls the type of value the input should contain. If omitted or set to invalid value, the default value of <code>text</code> will be implied. Can be one of <code>&quot;email&quot;</code>, <code>&quot;tel&quot;</code>, <code>&quot;text&quot;</code> or <code>&quot;url&quot;</code>. </p>
+</dd>
+<dt>
+<h4>
+<code>value</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>The text content of the input. </p>
+</dd>
+</dl>
+<style>.memberList>*+ dt{margin-top:calc(var(--vspace)*3)}</style>
+</section>
+<section class="textblock">
+<h2>RichInputElement Class</h2>
+<p>The RichInputElement interface represents <code>richinput</code> elements in the DOM. richinput is a Web Component and extends the HTMLElement interface. This means it also has access to all the methods and properties from HTMLElement, as well as those from its parent interfaces: Element, Node, and EventTarget. </p>
+<h3>Instance Methods</h3>
+<dl class="memberList">
+<dt>
+<h4>
+<code>checkValidity()</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>Indicates if the input has any validation issues.</p>
+<h5>Syntax</h5>
+<figure class="figure outset">
+<div class="figure__content"> 
+<pre class="codeblock inset codesample rounded"><code>result = instance.checkValidity()</code></pre>
+</div>
+</figure>
+<h5>Returns</h5>
+<p>A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>. </p>
+</dd>
+<dt>
+<h4>
+<code>focus()</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>Programatically set the focus to the input.</p>
+<h5>Syntax</h5>
+<figure class="figure outset">
+<div class="figure__content"> 
+<pre class="codeblock inset codesample rounded"><code>instance.focus(options)</code></pre>
+</div>
+</figure>
+<h5>Arguments</h5>
+<dl class="argumentList">
+<dt>
+<code>options</code>
+</dt>
+<dd>
+A Object. </dd>
+</dl>
+</dd>
+<dt>
+<h4>
+<code>reportValidity()</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>Performs a validation check and reports any resulting failure to the user. If this input has an associated form element, the form submission will be prevented until the element is in a valid state.</p>
+<h5>Syntax</h5>
+<figure class="figure outset">
+<div class="figure__content"> 
+<pre class="codeblock inset codesample rounded"><code>result = instance.reportValidity()</code></pre>
+</div>
+</figure>
+<h5>Returns</h5>
+<p>A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>. </p>
+</dd>
+<dt>
+<h4>
+<code>select()</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>Sets the current selection to the text content of the input.</p>
+<h5>Syntax</h5>
+<figure class="figure outset">
+<div class="figure__content"> 
+<pre class="codeblock inset codesample rounded"><code>instance.select()</code></pre>
+</div>
+</figure>
+</dd>
+<dt>
+<h4>
+<code>setCustomValidity()</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>Sets a custom validity message for the input. When a validation check is performed by <code>reportValidity</code>, this message will be shown to the user. To stop showing the message call this method with an empty string.</p>
+<h5>Syntax</h5>
+<figure class="figure outset">
+<div class="figure__content"> 
+<pre class="codeblock inset codesample rounded"><code>instance.setCustomValidity(message)</code></pre>
+</div>
+</figure>
+<h5>Arguments</h5>
+<dl class="argumentList">
+<dt>
+<code>message</code>
+</dt>
+<dd>
+A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>. </dd>
+</dl>
+</dd>
+<dt>
+<h4>
+<code>setRangeText()</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>Sets the start and end positions of the text selection in the element. </p>
+<h5>Syntax</h5>
+<figure class="figure outset">
+<div class="figure__content"> 
+<pre class="codeblock inset codesample rounded"><code>instance.setRangeText(replacement, start, end, selectMode)</code></pre>
+</div>
+</figure>
+<h5>Arguments</h5>
+<dl class="argumentList">
+<dt>
+<code>replacement</code>
+</dt>
+<dd>
+A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>. The string to insert. </dd>
+<dt>
+<code>start</code>
+<span class="badge">optional</span>
+</dt>
+<dd>
+A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>. The index of the first character to replace. Defaults to the current <code>selectionStart</code> value. </dd>
+<dt>
+<code>end</code>
+<span class="badge">optional</span>
+</dt>
+<dd>
+A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>. The index of the character after the last character to replace. Defaults to the current <code>selectionEnd</code> value. </dd>
+<dt>
+<code>selectMode</code>
+<span class="badge">optional</span>
+</dt>
+<dd>
+A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>. Selection state after the text has been replaced. Allowed values: <code>'end'</code>, <code>'preserve'</code>, <code>'select'</code> or <code>'start'</code> </dd>
+</dl>
+<p class="note rounded inset">
+<i class="icon icon--info"></i>
+<em>Note: As per the HTML5 spec, this method will throw a <code>InvalidStateError</code> exception for inputs with a type of <code>email</code>.</em>
+</p>
+</dd>
+<dt>
+<h4>
+<code>setSelectionRange()</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>Sets the start and end positions of the text selection in the element. </p>
+<h5>Syntax</h5>
+<figure class="figure outset">
+<div class="figure__content"> 
+<pre class="codeblock inset codesample rounded"><code>instance.setSelectionRange(selectionStart, selectionEnd, selectionDirection)</code></pre>
+</div>
+</figure>
+<h5>Arguments</h5>
+<dl class="argumentList">
+<dt>
+<code>selectionStart</code>
+</dt>
+<dd>
+A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>. The index of the first selected character. </dd>
+<dt>
+<code>selectionEnd</code>
+</dt>
+<dd>
+A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>. The index of the last selected character. </dd>
+<dt>
+<code>selectionDirection</code>
+<span class="badge">optional</span>
+</dt>
+<dd>
+A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>. Direction the selection was made. Allowed values: <code>'backward'</code>, <code>'forward'</code> or <code>'none'</code> </dd>
+</dl>
+<p class="note rounded inset">
+<i class="icon icon--info"></i>
+<em>Note: As per the HTML5 spec, this method will throw a <code>InvalidStateError</code> exception for inputs with a type of <code>email</code>.</em>
+</p>
+</dd>
+</dl>
+<style>.memberList>*+ dt{margin-top:calc(var(--vspace)*3)}</style>
+<h3>Instance Properties</h3>
+<dl class="memberList">
+<dt>
+<h4>
+<code>autocomplete</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>. Indicates whether the input value can be automatically completed by the browser. For information on allowed values please see: https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill. One of: <code>&quot;&lt;token-list&gt;&quot;</code>, <code>&quot;off&quot;</code> or <code>&quot;on&quot;</code>. Reflects the element's <code>autocomplete</code> attribute. </p>
+</dd>
+<dt>
+<h4>
+<code>disabled</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>. Controls whether the user is able interact with the input, or not. A disabled input cannot receive focus or have it's value modifed by the user. Reflects the element's <code>disabled</code> attribute. </p>
+</dd>
+<dt>
+<h4>
+<code>form</code>
+<span class="badge">Read Only</span>
+</h4>
+</dt>
+<dd class="textblock">
+<p>A <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement">HTMLFormElement</a>. Returns the form assosicated with the element, or <code>null</code> if a form is not available. </p>
+</dd>
+<dt>
+<h4>
+<code>list</code>
+<span class="badge">Read Only</span>
+</h4>
+</dt>
+<dd class="textblock">
+<p>A <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLDataListElement">HTMLDataListElement</a> or <a href="https://developer.mozilla.org/en-US/docs/Glossary/Null">null</a>. Returns a reference to the <code>&lt;datalist&gt;</code> element referred to by the <code>list</code> attribute, or <code>null</code> if the attribute is not present or the list it refers to is not accessible. </p>
+<p class="note rounded inset">
+<i class="icon icon--info"></i>
+<em>Note: A clone of the <code>&lt;datalist&gt;</code> element reference by this property will be appended to the Shadow DOM when the input receives focus. This is required because the element that captures user input is located in the Shadow DOM and cannot access elements in the Light DOM. The clone is destroyed once the element loses focus.</em>
+</p>
+</dd>
+<dt>
+<h4>
+<code>maxLength</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>. Determines the maximum number of characters permissable in the value. Reflects the element's <code>maxlength</code> attribute. </p>
+</dd>
+<dt>
+<h4>
+<code>pattern</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>. A string containing a regular expression that the user's input must match. The regular expression must match the entire input value, rather than matching a substring. Reflects the element's <code>pattern</code> attribute. </p>
+</dd>
+<dt>
+<h4>
+<code>placeholder</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>. A text string that is displayed in the field as a prompt until the user puts focus on the field. Reflects the element's <code>placeholder</code> attribute. </p>
+</dd>
+<dt>
+<h4>
+<code>readOnly</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>. Determines whether a user can modify the input value. An input marked as read-only can receive focus. Reflects the element's <code>readonly</code> attribute. </p>
+</dd>
+<dt>
+<h4>
+<code>required</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>. Determines if the user must supply a value for this input for it to be considered valid. If the input is marked as required and a value is missing, the user will be prompted to set one when attempting to submit a form. Reflects the element's <code>required</code> attribute. </p>
+</dd>
+<dt>
+<h4>
+<code>selectionDirection</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>A <a href="https://developer.mozilla.org/en-US/docs/Glossary/Null">null</a> or <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>. Gets or sets direction the current text selection was made. </p>
+<p class="note rounded inset">
+<i class="icon icon--info"></i>
+<em>Note: As per the HTML5 spec, this property will return <code>null</code> for inputs with a type of <code>email</code>. One of: <code>&quot;backward&quot;</code>, <code>&quot;forward&quot;</code> or <code>&quot;none&quot;</code>.</em>
+</p>
+</dd>
+<dt>
+<h4>
+<code>selectionEnd</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>A <a href="https://developer.mozilla.org/en-US/docs/Glossary/Null">null</a> or <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>. Gets or sets the index of the last character in the text selection or the caret position, if nothing is selected. </p>
+<p class="note rounded inset">
+<i class="icon icon--info"></i>
+<em>Note: As per the HTML5 spec, this property will return <code>null</code> for inputs with a type of <code>email</code>.</em>
+</p>
+</dd>
+<dt>
+<h4>
+<code>selectionStart</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>A <a href="https://developer.mozilla.org/en-US/docs/Glossary/Null">null</a> or <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a>. Gets or sets the index of the first character in the text selection or the caret position, if nothing is selected. </p>
+<p class="note rounded inset">
+<i class="icon icon--info"></i>
+<em>Note: As per the HTML5 spec, this property will return <code>null</code> for inputs with a type of <code>email</code>.</em>
+</p>
+</dd>
+<dt>
+<h4>
+<code>stylePattern</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>. The regular expression pattern used to control styling of the input value. The pattern must match the entire input value, rather than matching a substring. Reflects the element's <code>stylepattern</code> attribute. </p>
+</dd>
+<dt>
+<h4>
+<code>type</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>. Controls the type of value the input should contain. If omitted or set to invalid value, the default value of <code>text</code> will be implied. One of: <code>&quot;email&quot;</code>, <code>&quot;tel&quot;</code>, <code>&quot;text&quot;</code> or <code>&quot;url&quot;</code>. Reflects the element's <code>type</code> attribute. </p>
+</dd>
+<dt>
+<h4>
+<code>validationMessage</code>
+<span class="badge">Read Only</span>
+</h4>
+</dt>
+<dd class="textblock">
+<p>A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>. The current validation error message to show the user. </p>
+</dd>
+<dt>
+<h4>
+<code>validity</code>
+<span class="badge">Read Only</span>
+</h4>
+</dt>
+<dd class="textblock">
+<p>A <a href="https://developer.mozilla.org/en-US/docs/Web/API/ValidityState">ValidityState</a>. Returns the current validity state of the input. </p>
+</dd>
+<dt>
+<h4>
+<code>value</code>
+</h4>
+</dt>
+<dd class="textblock">
+<p>A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>. The text content of the input. Reflects the element's <code>value</code> attribute. </p>
+</dd>
+<dt>
+<h4>
+<code>willValidate</code>
+<span class="badge">Read Only</span>
+</h4>
+</dt>
+<dd class="textblock">
+<p>A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>. Indicates whether this input will participate in validation or not. </p>
+</dd>
+</dl>
+<style>.memberList>*+ dt{margin-top:calc(var(--vspace)*3)}</style>
+</section>
+</main>
+<div class="kccouk kccouk--footer bleed-left bleed-right">
+<span>A <a href="https://keithclark.co.uk">Keith Clark</a> project</span>
+<ul class="kccouk__social">
+<li><a class="serviceLink" href="https://bsky.app/profile/keithclarkcouk.bsky.social">
+<i class="icon icon--bluesky"></i>Keith Clark on BlueSky</a>
+<li><a class="serviceLink" href="https://x.com/keithclarkcouk">
+<i class="icon icon--x"></i>Keith Clark on X</a>
+<li><a class="serviceLink" href="https://github.com/keithclark">
+<i class="icon icon--github"></i>Keith Clark on GitHub</a>
+</ul>
+</div>
+<script>{const elem=document.getElementById('heroinput');const type=(text)=>new Promise((resolve)=>{elem.classList.remove('idle');let a=0;const typeChar=()=>{elem.value+=text.at(a);if(a++<text.length-1){setTimeout(typeChar,160-text.charCodeAt(a)/2)}else{elem.classList.add('idle');setTimeout(resolve,250)}};typeChar()});const pause=(time)=>new Promise((resolve)=>setTimeout(resolve,time));const del=(count=elem.value.length)=>new Promise((resolve)=>{elem.classList.remove('idle');let a=0;const delChar=()=>{elem.value=elem.value.slice(0,-1);if(a<count-1){setTimeout(delChar,a ? 50:250);a++}else{elem.classList.add('idle');setTimeout(resolve,250)}};delChar()});customElements.whenDefined('kc-richinput').then(async()=>{const cursorStylesheet=new CSSStyleSheet();cursorStylesheet.replaceSync(`
+output::after{content:" ";vertical-align:text-top;display:inline-block;margin-left:.03ch;width:.035ch;border-radius:4px;height:2.15ch;overflow:hidden;background:light-dark(#444,#ccc)}:host(.idle)output::after{animation:.5s .1s blink alternate infinite}@keyframes blink{0%,50%{opacity:1}70%,100%{opacity:0}}`);elem.shadowRoot.adoptedStyleSheets.push(cursorStylesheet);demo()});const demoStep=async(text,pattern,className)=>{elem.classList.add(className);elem.stylePattern=pattern;await type(text);await pause(1400);await del();elem.classList.remove(className)};const demo=async()=>{await demoStep('<RichInput>','<(\\w{0,4})(.*?)>?','heroInput--intro');await demoStep('colourful text inputs','(c)?(o)?(l)?(o)?(u)?(r)?(f)?(u)?(l)?.*?','heroInput--intro2');await demoStep('mail@site.com','([^@]+)@?(\\S+)?','heroInput--email');await demoStep('https://site.com/test','(\\w+)(?::/?/?)?(?:([^/]+)?(?:/?)(.*))','heroInput--url');demo()}}</script>
+<script type="module">import RichTextInput from './richinput.js';customElements.define('kc-richinput',RichTextInput);</script>
+<script async src="prism.js"></script>
+<style>.icon--keithclark{--icon-url:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m23.641 7.084c-.09-1.614-.299-3.288-.598-4.961-1.704-.299-3.557-.538-5.559-.687-1.644-.12-3.168-.179-4.632-.209l-5.918 10.341 6.515 11.208c.986 0 2.002-.03 3.048-.09l-4.513-8.04 3.945-7.472c.777-.12 1.584-.179 2.421-.179.777 0 1.524.06 2.271.179l-4.065 7.262 4.423 7.89c.717-.06 1.405-.179 2.062-.299.299-1.674.508-3.347.598-5.051.12-1.674.149-3.317.149-4.901 0-1.674-.03-3.347-.149-4.991m-15.75-5.738c-3.258.239-5.081.478-6.784.777-.598 3.467-.897 6.784-.897 9.952 0 3.288.299 6.605.897 9.952 6.187.628 6.754.658 7.322.687l-6.336-10.849 5.798-10.52"/></svg>')}.icon--info{--icon-url:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 11.999c0 6.627 5.373 12.001 12 12.001s12-5.373 12-12.001C24 5.373 18.627 0 12 0zM13.834 18.552c0 1.006-.824 1.822-1.829 1.822-1.006 0-1.829-.816-1.829-1.822V10.582c0-1.006.823-1.821 1.829-1.821 1.005 0 1.829.815 1.829 1.821V18.552zM12 7.255c-1.11 0-2.01-.9-2.01-2.009 0-1.11.9-2.009 2.01-2.009 1.109 0 2.01.899 2.01 2.009C14.01 6.355 13.109 7.255 12 7.255z"/></svg>')}.icon--github{--icon-url:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11.963.294C5.337.294-.037 5.669-.037 12.294c0 5.301 3.46 9.791 8.172 11.411.589 .074.81-.294.81-.589v-2.061c-3.313.736-4.049-1.62-4.049-1.62-.515-1.399-1.325-1.767-1.325-1.767-1.104-.736.074-.736.074-.736 1.178.074 1.84 1.252 1.84 1.252 1.104 1.84 2.798 1.325 3.46 1.031.074-.81.442-1.325.736-1.62-2.65-.294-5.448-1.325-5.448-5.963 0-1.325.442-2.356 1.252-3.239-.074-.221-.515-1.472.147-3.092 0 0 1.031-.294 3.313 1.252.957-.294 1.988-.368 3.018-.368 1.031 0 2.061.147 3.018.368 2.282-1.546 3.313-1.252 3.313-1.252.663 1.62.221 2.871.147 3.166.736 .81 1.252 1.914 1.252 3.239 0 4.638-2.798 5.595-5.448 5.89.442 .368.81 1.104.81 2.209V23.117c0 .294.221 .663.81 .589 4.785-1.62 8.172-6.11 8.172-11.411C23.963 5.669 18.589.294 11.963.294z"/></svg>')}.icon--bluesky{--icon-url:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m5.44 3.42c2.64 2 5.52 6.04 6.56 8.2 1.04-2.16 3.92-6.2 6.56-8.2 1.92-1.44 5.04-2.56 5.04 1 0 .72-.4 5.96-.64 6.8-.84 2.96-3.84 3.72-6.52 3.24 4.68.8 5.88 3.44 3.28 6.12-4.88 5-7.04-1.28-7.56-2.88-.12-.32-.16-.44-.16-.32 0-.12-.04 0-.16.32-.52 1.6-2.68 7.88-7.56 2.88-2.6-2.68-1.4-5.32 3.28-6.12-2.68.48-5.68-.28-6.52-3.24-.24-.84-.64-6.08-.64-6.8 0-3.56 3.12-2.44 5.04-1z"/></svg>')}.icon--x{--icon-url:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.28 10.12 23.22-.26h-2.12L13.34 8.76 7.14-.26H0l9.36 13.64L0 24.26h2.12l8.18-9.52 6.56 9.52h7.14L14.28 10.12ZM11.38 13.5l-.94-1.36L2.88 1.34h3.26l6.08 8.72.96 1.36 7.92 11.32H17.84L11.38 13.5Z"/></svg>')}</style>
+</body>
+</html>
