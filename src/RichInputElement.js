@@ -101,7 +101,7 @@ export default class RichInputElement extends HTMLElement {
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === 'stylepattern') {
       try {
-        this.#formatRegex = new RegExp(`^(?:${newValue})$`, 'gd');
+        this.#formatRegex = new RegExp(`^(?:${newValue})$`, 'd');
       } catch (e) {
         this.#formatRegex = null;
       }
@@ -170,7 +170,6 @@ export default class RichInputElement extends HTMLElement {
       chunks.push(htmlEncode(value.slice(lastIndex)));
     }
     this.#output.innerHTML = chunks.join('');
-    this.#formatRegex.lastIndex = 0;
   }
 
 
