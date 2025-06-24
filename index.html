@@ -125,8 +125,8 @@ stylepattern="([^@]+)@?(.*)?"
 </div>
 </div>
 <div class="tabsheet">
-<input tabindex="0" id="ce-620163089-HTML" name="ce-620163089" type="radio" value="html" checked>
-<label class="tabsheet__tab" for="ce-620163089-HTML">HTML</label>
+<input tabindex="0" id="htmlpreview-1-HTML" name="htmlpreview-1" type="radio" value="html" checked>
+<label class="tabsheet__tab" for="htmlpreview-1-HTML">HTML</label>
 <div class="tabsheet__pane" tabindex="0">
 <pre class="codeblock inset"><code class="language-html">&lt;kc-richinput
   id=&quot;email-example&quot;
@@ -135,8 +135,8 @@ stylepattern="([^@]+)@?(.*)?"
   stylepattern=&quot;([^@]+)@?(.*)?&quot;
 &gt;&lt;/kc-richinput&gt;</code></pre>
 </div>
-<input tabindex="0" id="ce-620163089-CSS" name="ce-620163089" type="radio" value="html">
-<label class="tabsheet__tab" for="ce-620163089-CSS">CSS</label>
+<input tabindex="0" id="htmlpreview-1-CSS" name="htmlpreview-1" type="radio" value="html">
+<label class="tabsheet__tab" for="htmlpreview-1-CSS">CSS</label>
 <div class="tabsheet__pane" tabindex="0">
 <pre class="codeblock inset"><code class="language-css">#email-example::part(group-1) {
   color: #df2020;
@@ -166,8 +166,8 @@ stylepattern="(\w+)(?::/?/?)?(?:([^/]+)?(?:/?)([^?]*)(?:\??))(.*)"
 </div>
 </div>
 <div class="tabsheet">
-<input tabindex="0" id="ce-1264765476-HTML" name="ce-1264765476" type="radio" value="html" checked>
-<label class="tabsheet__tab" for="ce-1264765476-HTML">HTML</label>
+<input tabindex="0" id="htmlpreview-2-HTML" name="htmlpreview-2" type="radio" value="html" checked>
+<label class="tabsheet__tab" for="htmlpreview-2-HTML">HTML</label>
 <div class="tabsheet__pane" tabindex="0">
 <pre class="codeblock inset"><code class="language-html">&lt;kc-richinput
   id=&quot;url-example&quot;
@@ -176,8 +176,8 @@ stylepattern="(\w+)(?::/?/?)?(?:([^/]+)?(?:/?)([^?]*)(?:\??))(.*)"
   stylepattern=&quot;(\w+)(?::/?/?)?(?:([^/]+)?(?:/?)([^?]*)(?:\??))(.*)&quot;
 &gt;&lt;/kc-richinput&gt;</code></pre>
 </div>
-<input tabindex="0" id="ce-1264765476-CSS" name="ce-1264765476" type="radio" value="html">
-<label class="tabsheet__tab" for="ce-1264765476-CSS">CSS</label>
+<input tabindex="0" id="htmlpreview-2-CSS" name="htmlpreview-2" type="radio" value="html">
+<label class="tabsheet__tab" for="htmlpreview-2-CSS">CSS</label>
 <div class="tabsheet__pane" tabindex="0">
 <pre class="codeblock inset"><code class="language-css">#url-example::part(group-1) {
   color: #e61919;
@@ -213,8 +213,8 @@ stylepattern="(0\d{0,4})\s*(\d*)"
 </div>
 </div>
 <div class="tabsheet">
-<input tabindex="0" id="ce-759489250-HTML" name="ce-759489250" type="radio" value="html" checked>
-<label class="tabsheet__tab" for="ce-759489250-HTML">HTML</label>
+<input tabindex="0" id="htmlpreview-3-HTML" name="htmlpreview-3" type="radio" value="html" checked>
+<label class="tabsheet__tab" for="htmlpreview-3-HTML">HTML</label>
 <div class="tabsheet__pane" tabindex="0">
 <pre class="codeblock inset"><code class="language-html">&lt;kc-richinput
   id=&quot;tel-example&quot;
@@ -223,8 +223,8 @@ stylepattern="(0\d{0,4})\s*(\d*)"
   stylepattern=&quot;(0\d{0,4})\s*(\d*)&quot;
 &gt;&lt;/kc-richinput&gt;</code></pre>
 </div>
-<input tabindex="0" id="ce-759489250-CSS" name="ce-759489250" type="radio" value="html">
-<label class="tabsheet__tab" for="ce-759489250-CSS">CSS</label>
+<input tabindex="0" id="htmlpreview-3-CSS" name="htmlpreview-3" type="radio" value="html">
+<label class="tabsheet__tab" for="htmlpreview-3-CSS">CSS</label>
 <div class="tabsheet__pane" tabindex="0">
 <pre class="codeblock inset"><code class="language-css">#tel-example::part(group-1) {
   color: #df2020;
@@ -278,7 +278,7 @@ import the element and register it:</p>
 <figure class="figure outset">
 <div class="figure__content"> 
 <pre class="codeblock inset codesample rounded"><code class="language-html">&lt;script type=&quot;module&quot;&gt;
-  import RichInputElement from &#039;https://cdn.jsdelivr.net/gh/keithclark/richinput@1.0.0/dist/richinput.min.js&#039;;
+  import RichInputElement from &#039;https://cdn.jsdelivr.net/gh/keithclark/richinput@1.0.1/dist/richinput.js&#039;;
   customElements.define(&#039;kc-richinput&#039;, RichInputElement);
 &lt;/script&gt;</code></pre>
 </div>
@@ -352,7 +352,7 @@ import the element and register it:</p>
 </h4>
 </dt>
 <dd class="textblock">
-<p>The regular expression pattern used to control styling of the input value. The pattern must match the entire input value, rather than matching a substring. </p>
+<p>The regular expression pattern used to control styling of the input value. It's compiled with the <code>v</code> flag, so it's Unicode-aware. The pattern must match the entire input value—not just part of it. </p>
 </dd>
 <dt>
 <h4>
@@ -673,7 +673,7 @@ A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Glo
 </h4>
 </dt>
 <dd class="textblock">
-<p>A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>. The regular expression pattern used to control styling of the input value. The pattern must match the entire input value, rather than matching a substring. Reflects the element's <code>stylepattern</code> attribute. </p>
+<p>A <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>. The regular expression pattern used to control styling of the input value. It's compiled with the <code>v</code> flag, so it's Unicode-aware. The pattern must match the entire input value—not just part of it. Reflects the element's <code>stylepattern</code> attribute. </p>
 </dd>
 <dt>
 <h4>
