@@ -31,7 +31,8 @@
   outline: auto -webkit-focus-ring-color;
 }
 
-:host(:disabled) output {
+:host(:disabled) output,
+output:empty {
   display: none;
 }
 
@@ -59,6 +60,7 @@ div::-webkit-scrollbar {
 span {
   display: grid;
   align-items: center;
+  flex: 1; /* Ensure the overlay container element always fills the parent */
 }
 
 input,output {
