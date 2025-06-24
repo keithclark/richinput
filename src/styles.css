@@ -6,7 +6,7 @@
   caret-color: fieldtext;
   background-color: field;
   line-height: 1;
-
+  cursor: text;
 }
 
 /** Feature detect Safari */
