@@ -1,7 +1,7 @@
 {
   "name": "@keithclark/richinput",
   "description": "A web component for more colourful text inputs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/richinput.js",
   "files": ["dist/"],
   "types": "./dist/richinput.d.ts",

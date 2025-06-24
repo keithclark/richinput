@@ -54,7 +54,6 @@ export default class RichInputElement extends HTMLElement {
       classList.toggle('noselection', selectionStart !== null && selectionStart === selectionEnd);
     };
 
-    // when receiving focus update the ::selection styles
     this.addEventListener('focus', () => {
       // when receiving focus update the ::selection styles
       this.#updateSelectionStyles();
@@ -101,7 +100,7 @@ export default class RichInputElement extends HTMLElement {
   attributeChangedCallback(name, oldValue, newValue) {
     if (name === 'stylepattern') {
       try {
-        this.#formatRegex = new RegExp(`^(?:${newValue})$`, 'gd');
+        this.#formatRegex = new RegExp(`^(?:${newValue})$`, 'dv');
       } catch (e) {
         this.#formatRegex = null;
       }
@@ -127,9 +126,9 @@ export default class RichInputElement extends HTMLElement {
   }
 
   #updateSelectionStyles() {
-    // It's not possible for ::selection to inherit values form the cascade
-    // so we query the host element styles and pass them on through a custom
-    // property.
+    // It's not possible for ::selection to inherit values from the cascade
+    // so we query the host element for its styles and pass them on through a 
+    // custom property.
     const { backgroundColor } = getComputedStyle(this, '::selection');
     this.#input.style.setProperty('--selection', backgroundColor);
   }
@@ -142,8 +141,9 @@ export default class RichInputElement extends HTMLElement {
     this.#internals.setFormValue(value);
     this.#setValidityFromInput();
 
-    // If the output doesn't match the regex then there is no need to higlight
-    // the content so set `textContent`
+    // If the output doesn't match the regex pattern there is no need to 
+    // highlight the content. Instead we just set `textContent` on the output
+    // element and exit.
     const match = this.#formatRegex?.exec(value);
     if (!match) {
       this.#output.textContent = value;
@@ -170,7 +170,6 @@ export default class RichInputElement extends HTMLElement {
       chunks.push(htmlEncode(value.slice(lastIndex)));
     }
     this.#output.innerHTML = chunks.join('');
-    this.#formatRegex.lastIndex = 0;
   }
 
 
@@ -416,8 +415,8 @@ export default class RichInputElement extends HTMLElement {
 
   /**
    * The regular expression pattern used to control styling of the input value.
-   * The pattern must match the entire input value, rather than matching a 
-   * substring.
+   * It's compiled with the `v` flag, so it's Unicode-aware. The pattern must 
+   * match the entire input value—not just part of it.
    * @htmlattr stylepattern
    * @type {string}
    */

@@ -104,8 +104,8 @@ declare module "@keithclark/richinput" {
     readonly willValidate: boolean;
     /**
      * The regular expression pattern used to control styling of the input
-     * value. The pattern must match the entire input value, rather than
-     * matching a substring.
+     * value. It's compiled with the `v` flag, so it's Unicode-aware. The
+     * pattern must match the entire input value—not just part of it.
      */
     stylePattern: string;
     /**
