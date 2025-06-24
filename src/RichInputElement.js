@@ -54,7 +54,6 @@ export default class RichInputElement extends HTMLElement {
       classList.toggle('noselection', selectionStart !== null && selectionStart === selectionEnd);
     };
 
-    // when receiving focus update the ::selection styles
     this.addEventListener('focus', () => {
       // when receiving focus update the ::selection styles
       this.#updateSelectionStyles();
@@ -127,9 +126,9 @@ export default class RichInputElement extends HTMLElement {
   }
 
   #updateSelectionStyles() {
-    // It's not possible for ::selection to inherit values form the cascade
-    // so we query the host element styles and pass them on through a custom
-    // property.
+    // It's not possible for ::selection to inherit values from the cascade
+    // so we query the host element for its styles and pass them on through a 
+    // custom property.
     const { backgroundColor } = getComputedStyle(this, '::selection');
     this.#input.style.setProperty('--selection', backgroundColor);
   }
