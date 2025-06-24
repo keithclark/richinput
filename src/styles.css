@@ -87,12 +87,6 @@ See: https://html.spec.whatwg.org/multipage/input.html#do-not-apply
 input.noselection+output {
   order:-1
 }
-/*
-input { z-index:1}
-*/
-output {
-  pointer-events: none;
-}
 
 input {
   text-shadow: none;
